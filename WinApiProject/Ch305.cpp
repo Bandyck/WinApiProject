@@ -13,7 +13,7 @@
 //	int Rspeed = 50;
 //	int Tspeed = 50;
 //	void update();
-//	void show(HDC hdc, cCircle cl);
+//	void show(HDC hdc);
 //	void Collision(cCircle * List, int counter);
 //};
 //void cCircle::update()
@@ -25,9 +25,9 @@
 //	x += Rspeed;
 //	y += Tspeed;
 //}
-//void cCircle::show(HDC hdc, cCircle cl)
+//void cCircle::show(HDC hdc)
 //{
-//	Ellipse(hdc, cl.x - cl.r, cl.y - cl.r, cl.x + cl.r, cl.y + cl.r);
+//	Ellipse(hdc, this->x - this->r, this->y - this->r, this->x + this->r, this->y + this->r);
 //}
 //void cCircle::Collision(cCircle * List, int counter)
 //{
@@ -102,7 +102,7 @@
 //	case WM_PAINT:
 //		hdc = BeginPaint(hwnd, &ps);
 //		for (int i = 1; i <= counter; ++i)
-//			cl[i].show(hdc, cl[i]);
+//			cl[i].show(hdc);
 //		EndPaint(hwnd, &ps); 
 //		break;
 //	case WM_TIMER:
