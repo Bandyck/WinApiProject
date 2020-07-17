@@ -54,5 +54,50 @@
     <ClCompile Include="Ch308.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ch101.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="202.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="203.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="204.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="205.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="206.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="207.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="208.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="209.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="210.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="211.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="212.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

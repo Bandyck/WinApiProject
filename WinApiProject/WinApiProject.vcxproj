@@ -142,6 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="201.cpp" />
+    <ClCompile Include="202.cpp" />
+    <ClCompile Include="203.cpp" />
+    <ClCompile Include="204.cpp" />
+    <ClCompile Include="205.cpp" />
+    <ClCompile Include="206.cpp" />
+    <ClCompile Include="207.cpp" />
+    <ClCompile Include="208.cpp" />
+    <ClCompile Include="209.cpp" />
+    <ClCompile Include="210.cpp" />
+    <ClCompile Include="211.cpp" />
+    <ClCompile Include="212.cpp" />
+    <ClCompile Include="Basic.cpp" />
+    <ClCompile Include="Ch101.cpp" />
     <ClCompile Include="Ch304.cpp" />
     <ClCompile Include="Ch201.cpp" />
     <ClCompile Include="Ch202.cpp" />
@@ -155,6 +169,7 @@
     <ClCompile Include="Ch306.cpp" />
     <ClCompile Include="Ch307.cpp" />
     <ClCompile Include="Ch308.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
