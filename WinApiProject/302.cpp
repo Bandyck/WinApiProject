@@ -39,19 +39,31 @@
 //	}
 //	return (int)msg.wParam;
 //}
-
 //LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPARAM)
 //{
 //	HDC				hdc;								
 //	PAINTSTRUCT		ps;	
+//	static int		x, y;
+//	static RECT		rectView;						   // 윈도우 크기를 벗어나지 않게 하기 위해서 윈도우의 크기를 알아야함.
+//													   // 그래서 RECT 구조체 선언.
 //	switch (iMsg)
-//	{
-//	case WM_CREATE:
+//	{												   // GetClientRect( ) 함수. 
+//	case WM_CREATE:									   // 클라이언트 영역의 왼쪽 상단 꼭지점 좌표와 오른쪽 하단 꼭지점 좌표가 RECT 구조체에 저장.
+//		GetClientRect(hwnd, &rectView);				   // hwnd = 측정하려는 윈도우의 핸들.
+//		x = 20, y = 20;								   // &rectView = 값을 저장할 RECT 구조체의 주소.
 //		break;
 //	case WM_PAINT:
 //		hdc = BeginPaint(hwnd, &ps);					
-//																							
+//		Ellipse(hdc, x - 20, y - 20, x + 20, y + 20);
 //		EndPaint(hwnd, &ps);							
+//		break;
+//	case WM_KEYDOWN:
+//		if (wParam == VK_RIGHT)
+//		{
+//			x += 40;
+//			if (x + 20 > rectView.right) x -= 40;
+//		}
+//		InvalidateRgn(hwnd, NULL, TRUE);
 //		break;
 //	case WM_DESTROY:
 //		PostQuitMessage(0);

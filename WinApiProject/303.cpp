@@ -39,19 +39,38 @@
 //	}
 //	return (int)msg.wParam;
 //}
-
 //LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPARAM)
 //{
 //	HDC				hdc;								
 //	PAINTSTRUCT		ps;	
+//	static int		x, y;
+//	static RECT		rectView;
+//	static bool		flag;										// 방향키를 누르는 동안 색이 변하도록 확인해주는 flag
 //	switch (iMsg)
 //	{
 //	case WM_CREATE:
+//		GetClientRect(hwnd, &rectView);
+//		x = 20, y = 20;
 //		break;
 //	case WM_PAINT:
-//		hdc = BeginPaint(hwnd, &ps);					
-//																							
+//		hdc = BeginPaint(hwnd, &ps);							
+//		if (flag)
+//			SelectObject(hdc, GetStockObject(LTGRAY_BRUSH));	// flag = true이면, 회색으로 그린다.
+//		Ellipse(hdc, x - 20, y - 20, x + 20, y + 20);
 //		EndPaint(hwnd, &ps);							
+//		break;
+//	case WM_KEYUP:
+//		flag = false;											// 방향키를 떼면 flag = false로 바꿔주고, 다시 그린다.
+//		InvalidateRgn(hwnd, NULL, TRUE);
+//		break;
+//	case WM_KEYDOWN:
+//		if (wParam == VK_RIGHT)
+//		{
+//			flag = true;										// -> 키를 누르고 있는동안에는 flag = true. 그래서 회색이 칠해짐.
+//			x += 40;
+//			if (x + 20 > rectView.right)x -= 40;
+//		}
+//		InvalidateRgn(hwnd, NULL, TRUE);
 //		break;
 //	case WM_DESTROY:
 //		PostQuitMessage(0);

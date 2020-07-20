@@ -154,6 +154,10 @@
     <ClCompile Include="210.cpp" />
     <ClCompile Include="211.cpp" />
     <ClCompile Include="212.cpp" />
+    <ClCompile Include="301.cpp" />
+    <ClCompile Include="302.cpp" />
+    <ClCompile Include="303.cpp" />
+    <ClCompile Include="304.cpp" />
     <ClCompile Include="Basic.cpp" />
     <ClCompile Include="Ch101.cpp" />
     <ClCompile Include="Ch304.cpp" />
