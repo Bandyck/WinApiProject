@@ -56,6 +56,13 @@ TCHAR sKeyState[128];
 // 대화상자 부분
 BOOL CALLBACK Dlg6_1Proc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lParam);
 
+// 윈도우 분할 부분
+#define IDC_CHILD_BTN 100
+#define IDC_CHILD_BTN1 101
+HWND childHwnd[2];
+LRESULT CALLBACK ChildWnd1Proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK ChildWnd2Proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 // >> :
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -97,9 +104,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
-
     wcex.cbSize = sizeof(WNDCLASSEX);
-
     wcex.style          = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
@@ -111,8 +116,18 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_WINAPIPROJECTRESOUCE);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    RegisterClassExW(&wcex);
 
-    return RegisterClassExW(&wcex);
+	wcex.lpfnWndProc = ChildWnd1Proc;
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = _T("Child2");
+	RegisterClassExW(&wcex);
+
+	wcex.lpfnWndProc = ChildWnd2Proc;
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = _T("Child3");
+	RegisterClassExW(&wcex);
+	return RegisterClassExW(&wcex);
 }
 //
 //   FUNCTION: InitInstance(HINSTANCE, int)
@@ -188,6 +203,49 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SetTimer(hWnd, 123, 100, AniProc);
 		SetTimer(hWnd, 111, 100, KeyStateProc);
 		GetClientRect(hWnd, &rectView);
+		// 윈도우 분할 부분
+		childHwnd[0] = CreateWindowEx(
+			WS_EX_CLIENTEDGE,
+			_T("Child1"),
+			NULL,
+			WS_CHILD | WS_VISIBLE,
+			0,
+			0,
+			rectView.right / 2 - 1,
+			rectView.bottom / 2 - 1,
+			hWnd,
+			NULL,
+			hInst,
+			NULL
+		);
+		childHwnd[1] = CreateWindowEx(
+			WS_EX_CLIENTEDGE,
+			_T("Child2"),
+			NULL,
+			WS_CHILD | WS_VISIBLE,
+			0,
+			rectView.bottom / 2 + 1,
+			rectView.right / 2 - 1,
+			rectView.bottom / 2 - 1,
+			hWnd,
+			NULL,
+			hInst,
+			NULL
+		);
+		childHwnd[2] = CreateWindowEx(
+			WS_EX_CLIENTEDGE,
+			_T("Child3"),
+			NULL,
+			WS_CHILD | WS_VISIBLE | WS_CAPTION | WS_SYSMENU,
+			rectView.right / 2 + 1,
+			0,
+			rectView.right / 2 - 1,
+			rectView.bottom,
+			hWnd,
+			NULL,
+			hInst,
+			NULL
+		);
 		break;
 	case WM_RBUTTONDOWN:
 		DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, Dlg6_1Proc);
@@ -228,7 +286,80 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
-
+// 윈도우 분할 부분
+LRESULT CALLBACK ChildWnd1Proc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HWND hButton;
+	switch (iMsg)
+	{
+	case WM_CREATE:
+		hButton = CreateWindow(
+			_T("button"),
+			_T("확인"),
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			200,
+			0,
+			100,
+			25,
+			hWnd,
+			(HMENU)IDC_CHILD_BTN,
+			hInst,
+			NULL);
+		break;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_CHILD_BTN:
+			HDC hdc = GetDC(hWnd);
+			TextOut(hdc, 0, 100, _T("Child2"), 6);
+			ReleaseDC(hWnd, hdc);
+			return 0;
+		}
+	case WM_PAINT:
+		return 0;
+	case WM_DESTROY:
+		return 0;
+	default:
+		break;
+	}
+	return DefMDIChildProc(hWnd, iMsg, wParam, lParam);
+}
+LRESULT CALLBACK ChildWnd2Proc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HWND hButton1;
+	switch (iMsg)
+	{
+	case WM_CREATE:
+		hButton1 = CreateWindow(
+			_T("button"),
+			_T("확인"),
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			200,
+			0,
+			100,
+			25,
+			hWnd,
+			(HMENU)IDC_CHILD_BTN1,
+			hInst,
+			NULL);
+		break;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_CHILD_BTN1:
+			HDC hdc = GetDC(childHwnd[1]);
+			TextOut(hdc, 0, 100, _T("RightWindow"), 11);
+			ReleaseDC(childHwnd[1], hdc);
+			return 0;
+		}
+		return 0;
+	case WM_DESTROY:
+		return 0;
+	default:
+		break;
+	}
+	return DefMDIChildProc(hWnd, iMsg, wParam, lParam);
+}
 // Message handler for about box.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {

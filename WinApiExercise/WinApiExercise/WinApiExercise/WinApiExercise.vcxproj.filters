@@ -27,7 +27,7 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WinApiProjectResouce.h">
+    <ClInclude Include="WinApiExercise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,12 +35,12 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WinApiProjectResouce.cpp">
+    <ClCompile Include="WinApiExercise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="WinApiProjectResouce.rc">
+    <ResourceCompile Include="WinApiExercise.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -48,7 +48,7 @@
     <Image Include="small.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="WinApiProjectResouce.ico">
+    <Image Include="WinApiExercise.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
